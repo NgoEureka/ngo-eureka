@@ -22,6 +22,9 @@ export async function POST(request: NextRequest) {
         await dbConnect();
         const data = await request.json();
         const res = await NewsModel.create(data);
+        if(!res) {
+            return NextResponse.json({ success: false, msg: 'Post not created' }, { status: 404 });
+        }
         return NextResponse.json({
             success: true
         }, {

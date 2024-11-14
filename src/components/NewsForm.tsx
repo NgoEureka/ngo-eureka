@@ -3,7 +3,7 @@
 import uploadFile from '@/lib/uploadFile';
 import { Upload } from 'lucide-react';
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 interface FormData {
     title: string;
@@ -88,6 +88,7 @@ const NewsForm = (props: NewsFormProps) => {
             }
             return true;
         } catch(e: any) {
+            console.log(e);
             toast.error("Something went wrong");
             return false;
         }
