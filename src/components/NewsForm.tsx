@@ -84,7 +84,7 @@ const NewsForm = (props: NewsFormProps) => {
                 toast.error(data.msg || "Something went wrong");
                 throw new Error(`HTTP error! status: ${response.status}`);
             } else {
-                toast.success("Submitted successfully");
+                toast.success("Post created successfully");
             }
             return true;
         } catch(e: any) {
