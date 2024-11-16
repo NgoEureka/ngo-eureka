@@ -28,7 +28,9 @@ const LiveStartButton = (props: LiveStartButtonProps) => {
     // }, []);
 
     return (
-        <Link className="bg-cyan-950 p-4 rounded-md shadow-lg hover:bg-emerald-950" href={props.isLive? '/live/running' : '/live'} >
+        <Link 
+        className="lg:max-w-96 w-4/5 text-center bg-rose-600 text-white py-2 px-4 rounded-md hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+        href={props.isLive? '/live/running' : '/live'} >
             {props.isLive? "Update Live Score":"Start a Live"}
         </Link>
     )

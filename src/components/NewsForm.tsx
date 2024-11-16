@@ -96,7 +96,7 @@ const NewsForm = (props: NewsFormProps) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 rounded-lg shadow-md space-y-6">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto py-3 px-6 rounded-lg shadow-md space-y-6">
                 <div>
                     <label htmlFor="title" className="block text-sm font-medium text-white mb-1">
                     Title
