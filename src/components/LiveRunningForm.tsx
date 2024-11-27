@@ -43,11 +43,12 @@ const LiveRunningForm = () => {
                 `/api/v1/live`
             );
             const data = await response.json();
-            console.log(data.data[0]);
-            
-            setData(data.data[0]);
-            setTeamName(data.data[0]);
-            
+            if(data.data) {
+                console.log(data.data[0]);
+                
+                setData(data.data[0]);
+                setTeamName(data.data[0]);
+            }
             
         };
     
