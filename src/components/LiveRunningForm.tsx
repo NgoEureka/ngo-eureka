@@ -1,10 +1,10 @@
 'use client';
 
+import { Match } from '@/models/MatchesModel';
 import mongoose from 'mongoose';
 import { useRouter } from 'next/navigation';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Match } from '@/models/MatchesModel';
 
 export interface MatchRunning  {
     _id: mongoose.Types.ObjectId;
@@ -93,9 +93,17 @@ const LiveRunningForm = () => {
 
 
     const saveMatch = async (liveData: Match): Promise<boolean> => {
+
         const url = "/api/v1/matches";
-        const {teamA,teamB,teamALogo,teamBLogo,teamAScore,teamBScore,date,time,overs,status,isBreak,isLive,isABowling} = liveData;
+        const {teamA,teamB,teamALogo,teamBLogo,teamAScore,teamBScore,date,time,overs,isBreak,isLive,isABowling} = liveData;
+        let {status} = liveData;
         try {
+
+            const timelineRes = await fetch(
+                `/api/v1/timeline`
+            );
+            const timeline = await timelineRes.json();
+            status = timeline.data[0].timeline;
 
             const response = await fetch(url, {
                 method: "POST",
@@ -103,6 +111,15 @@ const LiveRunningForm = () => {
                 "Content-Type": "application/json",
                 },
                 body: JSON.stringify({teamA,teamB,teamALogo,teamBLogo,teamAScore,teamBScore,date,time,overs,status,isBreak,isLive,isABowling}),
+            });
+
+            timeline.data[0].timeline = "";
+            const res = await fetch( `/api/v1/timeline`, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(timeline.data[0]),
             });
         
             const data: any = await response.json();
@@ -141,12 +158,29 @@ const LiveRunningForm = () => {
             } else {
                 toast.success("Updated successfully");
             }
+
+
+            const timelineRes = await fetch(
+                `/api/v1/timeline`
+            );
+            const timeline = await timelineRes.json();
+            timeline.data[0].timeline = (timeline.data[0].timeline +'|'+ liveData.overs + " : " + liveData.status); // update timeline with new status
+
+            const res = await fetch( `/api/v1/timeline`, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(timeline.data[0]),
+            });
+
             return true;
         } catch(e: any) {
             console.log(e);
             toast.error("Something went wrong");
             return false;
         }
+        
     }
 
     const refreshLiveData = async() => {
