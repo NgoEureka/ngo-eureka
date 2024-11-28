@@ -41,6 +41,11 @@ export default function Home() {
           </Link>
           <Link 
           className="lg:max-w-96 w-4/5 text-center bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+          href={"/userdata"}>
+            User Data
+          </Link>
+          <Link 
+          className="lg:max-w-96 w-4/5 text-center bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-150 ease-in-out"
           href={"/matches"}>
             All Matches
           </Link>
